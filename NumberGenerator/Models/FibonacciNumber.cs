@@ -60,7 +60,7 @@ namespace NumberGenerator.Models
 
         public void Reset(ulong? start, ulong? end)
         {
-            _startIndex = start == null || _startIndex < 0 ? 0 : start;
+            _startIndex = start == null || start < 0 ? 0 : start;
             _endIndex = end < 0 ? 0 : end;
             Reset();
         }

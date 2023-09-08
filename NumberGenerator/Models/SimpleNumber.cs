@@ -51,7 +51,7 @@ namespace NumberGenerator.Models
        
         public void Reset(ulong? start, ulong? end)
         {
-            _start = start == null || _start < 2 ? 2 : start;
+            _start = start != null && start >= 2 ? start : 2 ;
             _end = end < 0 ? 0 : end;
             Reset();
         }

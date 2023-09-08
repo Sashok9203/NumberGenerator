@@ -8,6 +8,11 @@
         xmlns:local="clr-namespace:NumberGenerator"
         mc:Ignorable="d"
         Title="MainWindow" Height="440" Width="560">
+
+    <Window.Resources>
+        <vms:Uint64Converter x:Key="myConverter" />
+    </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="210"/>
@@ -19,9 +24,9 @@
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="0,0,5,0" Text="Start" />
-                        <TextBox Margin="0,0,5,0" Width="60" Text="{Binding SimpleNumberGenerator.StartPosition}"/>
+                        <TextBox Margin="0,0,5,0" Width="60" Text="{Binding SimpleNumberGenerator.StartPosition,Converter={StaticResource myConverter}}"/>
                         <TextBlock Margin="5,0,5,0" Text="End" />
-                        <TextBox Width="60" Text="{Binding SimpleNumberGenerator.EndPosition}"/>
+                        <TextBox Width="60" Text="{Binding SimpleNumberGenerator.EndPosition,Converter={StaticResource myConverter}}"/>
                     </StackPanel>
                     <Button  Margin="0,5,0,5" Content="Start" Command="{Binding SimpleNumberGenerator.Start}" />
                     <Button  Margin="0,0,0,5" Content="Pause" Command="{Binding SimpleNumberGenerator.Pause}" />
@@ -34,9 +39,9 @@
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="0,0,5,0" Text="Start ind."/>
-                        <TextBox Margin="0,0,5,0" Width="60" Text="{Binding FibonacciNumberGenerator.StartPosition}"/>
+                        <TextBox Margin="0,0,5,0" Width="60" Text="{Binding FibonacciNumberGenerator.StartPosition,Converter={StaticResource myConverter}}"/>
                         <TextBlock Margin="5,0,5,0" Text="End ind."/>
-                        <TextBox Width="60"  Text="{Binding FibonacciNumberGenerator.EndPosition}"/>
+                        <TextBox Width="60"  Text="{Binding FibonacciNumberGenerator.EndPosition,Converter={StaticResource myConverter}}"/>
                     </StackPanel>
                     <Button  Margin="0,5,0,5" Content="Start" Command="{Binding FibonacciNumberGenerator.Start}" />
                     <Button  Margin="0,0,0,5" Content="Pause" Command="{Binding FibonacciNumberGenerator.Pause}" />
