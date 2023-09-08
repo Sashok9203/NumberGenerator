@@ -6,19 +6,19 @@ namespace NumberGenerator.Models
 {
     internal class SimpleNumber : IGenerator
     {
-        private int _current;
+        private ulong _current;
 
-        private int? _start;
+        private ulong? _start;
 
-        private int? _currentStart;
+        private ulong? _currentStart;
 
-        private int? _end;
+        private ulong? _end;
 
         object IEnumerator.Current => _current;
 
-        public int Current => _current;
+        public ulong Current => _current;
 
-        public SimpleNumber(int? start = null, int? end = null) => Reset(start, end);
+        public SimpleNumber(ulong? start = null, ulong? end = null) => Reset(start, end);
         
         public void Dispose() {}
 
@@ -26,9 +26,9 @@ namespace NumberGenerator.Models
         {
             while (_end == null || _currentStart <= _end)
             {
-                int range = (int)Math.Sqrt((double)_currentStart);
+                ulong range = (ulong)Math.Sqrt((double)_currentStart);
                 bool isSimpl = true;
-                for (int i = 2; i <= range; i++)
+                for (ulong i = 2; i <= range; i++)
                 {
                     if (_currentStart % i == 0)
                     {
@@ -49,14 +49,14 @@ namespace NumberGenerator.Models
 
         public void Reset() => _currentStart = _start;
        
-        public void Reset(int? start,int? end)
+        public void Reset(ulong? start, ulong? end)
         {
             _start = start == null || _start < 2 ? 2 : start;
-            _end = end;
+            _end = end < 0 ? 0 : end;
             Reset();
         }
 
-        public IEnumerator<int> GetEnumerator() => this;
+        public IEnumerator<ulong> GetEnumerator() => this;
         IEnumerator IEnumerable.GetEnumerator() => this;
     }
 }

@@ -7,7 +7,7 @@
         d:DataContext="{d:DesignInstance Type=vms:WindowModel}"
         xmlns:local="clr-namespace:NumberGenerator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="440" Width="360">
+        Title="MainWindow" Height="440" Width="560">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="210"/>
@@ -18,9 +18,9 @@
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="0,0,5,0" Text="Start" />
-                        <TextBox Margin="0,0,5,0" Width="30" Text="{Binding SimpleNumberGenerator.StartPosition}"/>
+                        <TextBox Margin="0,0,5,0" Width="60" Text="{Binding SimpleNumberGenerator.StartPosition}"/>
                         <TextBlock Margin="5,0,5,0" Text="End" />
-                        <TextBox Width="30" Text="{Binding SimpleNumberGenerator.EndPosition}"/>
+                        <TextBox Width="60" Text="{Binding SimpleNumberGenerator.EndPosition}"/>
                     </StackPanel>
                     <Button  Margin="0,5,0,5" Content="Start" Command="{Binding SimpleNumberGenerator.Start}" />
                     <Button  Margin="0,0,0,5" Content="Pause" Command="{Binding SimpleNumberGenerator.Pause}" />
@@ -29,19 +29,19 @@
                     <Button  Margin="0,5,0,5" Content="Restart" Command="{Binding SimpleNumberGenerator.Restart}"/>
                 </StackPanel>
             </GroupBox>
-            <GroupBox Header="Fibonacci numbers" Padding="5" Margin="15,0,0,0" Foreground="Red">
+            <GroupBox Header="Fibonacci numbers" Padding="5" Margin="15,0,0,0" Foreground="{Binding FibonacciNumberGenerator.Brush}">
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="0,0,5,0" Text="Start"/>
-                        <TextBox Margin="0,0,5,0" Width="30" Text="{Binding FibStart}"/>
-                        <TextBlock Margin="5,0,5,0" Text="End"/>
-                        <TextBox Width="30"  Text="{Binding FibEnd}"/>
+                        <TextBlock Margin="0,0,5,0" Text="Start ind."/>
+                        <TextBox Margin="0,0,5,0" Width="60" Text="{Binding FibonacciNumberGenerator.StartPosition}"/>
+                        <TextBlock Margin="5,0,5,0" Text="End ind."/>
+                        <TextBox Width="60"  Text="{Binding FibonacciNumberGenerator.EndPosition}"/>
                     </StackPanel>
-                    <Button  Margin="0,5,0,5" Content="Start"/>
-                    <Button  Margin="0,0,0,5" Content="Pause" />
-                    <Button  Margin="0,0,0,5" Content="Resume" />
-                    <Button  Content="Stop"/>
-                    <Button  Margin="0,5,0,5" Content="Restart"/>
+                    <Button  Margin="0,5,0,5" Content="Start" Command="{Binding FibonacciNumberGenerator.Start}" />
+                    <Button  Margin="0,0,0,5" Content="Pause" Command="{Binding FibonacciNumberGenerator.Pause}" />
+                    <Button  Margin="0,0,0,5" Content="Resume" Command="{Binding FibonacciNumberGenerator.Resume}"/>
+                    <Button  Content="Stop"   Command="{Binding FibonacciNumberGenerator.Stop}"/>
+                    <Button  Margin="0,5,0,5" Content="Restart" Command="{Binding FibonacciNumberGenerator.Restart}"/>
                 </StackPanel>
             </GroupBox>
         </StackPanel>

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace NumberGenerator.Models
 {
-    internal interface IGenerator:IEnumerator<int>,IEnumerable<int>
+    internal interface IGenerator:IEnumerator<ulong>,IEnumerable<ulong>
     {
-        void Reset(int? start, int? end);
+        void Reset(ulong? start, ulong? end);
     }
 }

@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Windows;
 using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
 
@@ -10,7 +11,26 @@ namespace NumberGenerator.Models
 {
     internal class NumberGenerator
     {
-        private bool IsPause  = false;
+        private bool isPause = false;
+        private bool IsPause
+        {
+            get => isPause;
+            set
+            {
+                isPause = value;
+                CommandManager.InvalidateRequerySuggested();
+            }
+        }
+        private bool isThreadStoped = true;
+        private bool IsThreadStoped
+        {
+            get => isThreadStoped;
+            set 
+            {
+                isThreadStoped = value;
+                CommandManager.InvalidateRequerySuggested();
+            }
+        }
 
         private Thread generatorThread;
 
@@ -20,7 +40,7 @@ namespace NumberGenerator.Models
 
         private Brush brush;
 
-        private bool buttonEnable => generatorThread.ThreadState != ThreadState.Stopped && generatorThread.ThreadState != ThreadState.Unstarted && !IsPause;
+        private bool buttonEnable => !IsThreadStoped && !IsPause;
 
         private void generate()
         {
@@ -30,27 +50,36 @@ namespace NumberGenerator.Models
                 {
                     Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
                     {
-                        paragraph.Inlines.Add(new Bold(new Run($"{item} , ")) { Foreground = brush });
+                        paragraph.Inlines.Add(new Bold(new Run($"{item}   ")) { Foreground = brush });
                     }));
                     if (!IsPause) Thread.Sleep(100);
                     else Thread.Sleep(Timeout.Infinite);
                 }
                 catch (ThreadInterruptedException)
                 {
-                    if (!IsPause) return;
+                    
+                    if (!IsPause) break;
                     else
                     {
-                        IsPause = false;
+                        Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+                        {
+                            IsPause = false;
+                        }));
                         continue;
                     }
                 }
-            };
+            }
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                IsThreadStoped = true;
+            }));
         }
 
         private void start(object o)
         {
             generatorThread = new(generate) { IsBackground = true };
             generator.Reset(StartPosition, EndPosition);
+            IsThreadStoped = false;
             generatorThread.Start();
         }
 
@@ -68,18 +97,16 @@ namespace NumberGenerator.Models
             generatorThread = new(generate);
         }
            
-        public ThreadState ThreadState => generatorThread.ThreadState;
+        public ulong? StartPosition { get; set; }
 
-        public int? StartPosition { get; set; }
-
-        public int? EndPosition { get; set; }
+        public ulong? EndPosition { get; set; }
 
         public Brush Brush => brush;
 
-        public RelayCommand Start => new((o) => start(o), (o) => generatorThread.ThreadState == ThreadState.Stopped || generatorThread.ThreadState == ThreadState.Unstarted);
+        public RelayCommand Start => new((o) => start(o), (o) => !IsPause && IsThreadStoped);
         public RelayCommand Pause => new((o) => pause(o), (o) => buttonEnable);
-        public RelayCommand Resume => new((o) => stop(o), (o) => IsPause);
-        public RelayCommand Stop => new((o) => stop(o), (o) => buttonEnable);
+        public RelayCommand Resume => new((o) => stop(o), (o) => IsPause && !IsThreadStoped);
+        public RelayCommand Stop => new((o) => stop(o), (o) => buttonEnable );
         public RelayCommand Restart => new((o) => restart(o), (o) => buttonEnable);
 
     }
