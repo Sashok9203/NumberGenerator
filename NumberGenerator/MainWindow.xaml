@@ -11,6 +11,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="210"/>
+            <RowDefinition Height="40"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Margin="15" >
@@ -45,6 +46,7 @@
                 </StackPanel>
             </GroupBox>
         </StackPanel>
-        <RichTextBox Name="RitchBox" Grid.Row="1" Margin="15" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+        <Button Grid.Row="1" Height="25" Width="60" Content="Clear text" HorizontalAlignment="Left" Margin="15,0,0,0" Command="{Binding Clear}"/>
+        <RichTextBox Name="RitchBox" Grid.Row="2" Margin="15" ScrollViewer.VerticalScrollBarVisibility="Auto" />
     </Grid>
 </Window>

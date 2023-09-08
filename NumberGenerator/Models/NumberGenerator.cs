@@ -81,6 +81,7 @@ namespace NumberGenerator.Models
             generator.Reset(StartPosition, EndPosition);
             IsThreadStoped = false;
             generatorThread.Start();
+            
         }
 
         private void stop(object o) => generatorThread?.Interrupt();
