@@ -1,0 +1,50 @@
+﻿<Window x:Class="NumberGenerator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vms="clr-namespace:NumberGenerator.Models"
+        d:DataContext="{d:DesignInstance Type=vms:WindowModel}"
+        xmlns:local="clr-namespace:NumberGenerator"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="440" Width="360">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="210"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Margin="15" >
+            <GroupBox Header="Simple numbers" Padding="5"  Foreground="{Binding SimpleNumberGenerator.Brush}">
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="0,0,5,0" Text="Start" />
+                        <TextBox Margin="0,0,5,0" Width="30" Text="{Binding SimpleNumberGenerator.StartPosition}"/>
+                        <TextBlock Margin="5,0,5,0" Text="End" />
+                        <TextBox Width="30" Text="{Binding SimpleNumberGenerator.EndPosition}"/>
+                    </StackPanel>
+                    <Button  Margin="0,5,0,5" Content="Start" Command="{Binding SimpleNumberGenerator.Start}" />
+                    <Button  Margin="0,0,0,5" Content="Pause" Command="{Binding SimpleNumberGenerator.Pause}" />
+                    <Button  Margin="0,0,0,5" Content="Resume" Command="{Binding SimpleNumberGenerator.Resume}"/>
+                    <Button  Content="Stop" Command="{Binding SimpleNumberGenerator.Stop}"/>
+                    <Button  Margin="0,5,0,5" Content="Restart" Command="{Binding SimpleNumberGenerator.Restart}"/>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="Fibonacci numbers" Padding="5" Margin="15,0,0,0" Foreground="Red">
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="0,0,5,0" Text="Start"/>
+                        <TextBox Margin="0,0,5,0" Width="30" Text="{Binding FibStart}"/>
+                        <TextBlock Margin="5,0,5,0" Text="End"/>
+                        <TextBox Width="30"  Text="{Binding FibEnd}"/>
+                    </StackPanel>
+                    <Button  Margin="0,5,0,5" Content="Start"/>
+                    <Button  Margin="0,0,0,5" Content="Pause" />
+                    <Button  Margin="0,0,0,5" Content="Resume" />
+                    <Button  Content="Stop"/>
+                    <Button  Margin="0,5,0,5" Content="Restart"/>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+        <RichTextBox Name="RitchBox" Grid.Row="1" Margin="15" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+    </Grid>
+</Window>
